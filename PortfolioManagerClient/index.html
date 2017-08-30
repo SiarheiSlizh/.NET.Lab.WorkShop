@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio Manager</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="Styles/site.css">
+
+    <script src="Scripts/jquery-3.1.0.js" language="javascript"></script>
+    <script src="Scripts/portfolioManager.js" language="javascript"></script>
+</head>
+<body>
+    <table id="items">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Number of shares</th>
+                <th>Actions</th>
+            </tr>
+            <!-- The row for creating new items. -->
+            <tr id="new">
+                <td><input type='text' id="symbol" /></td>
+                <td><input type='text' id="sharesNumber" /></td>
+                <td><input type='button' id="newCreate" value='Create' /></td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+</html>
