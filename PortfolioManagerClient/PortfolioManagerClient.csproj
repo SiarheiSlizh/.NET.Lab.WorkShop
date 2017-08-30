@@ -145,6 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\storage.xml" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="index.html" />
@@ -179,10 +180,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\DIConfig\DIConfig.csproj">
+      <Project>{9722acf9-e890-4540-a61f-1cfd8c49e00a}</Project>
+      <Name>DIConfig</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PortfolioManagerService\PortfolioManagerService.csproj">
       <Project>{b2704c1c-1d6a-49cb-81e1-fc2997c0955f}</Project>
       <Name>PortfolioManagerService</Name>

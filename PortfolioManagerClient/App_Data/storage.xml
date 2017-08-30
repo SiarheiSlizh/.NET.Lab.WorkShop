@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Portfolio>
+  <Item>
+    <ItemId>1</ItemId>
+    <UserId>1</UserId>
+    <Symbol>epam</Symbol>
+    <SharesNumber>30</SharesNumber>
+  </Item>
+  <Item>
+    <ItemId>2</ItemId>
+    <UserId>1</UserId>
+    <Symbol>iba</Symbol>
+    <SharesNumber>40</SharesNumber>
+  </Item>
+  <Item>
+    <ItemId>4</ItemId>
+    <UserId>2</UserId>
+    <Symbol>epam</Symbol>
+    <SharesNumber>100</SharesNumber>
+  </Item>
+  <Item>
+    <ItemId>5</ItemId>
+    <UserId>2</UserId>
+    <Symbol>epam</Symbol>
+    <SharesNumber>100</SharesNumber>
+  </Item>
+  <Item>
+    <ItemId>0</ItemId>
+    <UserId>86</UserId>
+    <Symbol>asdf</Symbol>
+    <SharesNumber>2</SharesNumber>
+  </Item>
+  <Item>
+    <ItemId>0</ItemId>
+    <UserId>86</UserId>
+    <Symbol>nfsdvsDc</Symbol>
+    <SharesNumber>231</SharesNumber>
+  </Item>
+</Portfolio>

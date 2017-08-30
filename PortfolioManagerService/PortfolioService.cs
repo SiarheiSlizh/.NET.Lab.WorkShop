@@ -43,9 +43,9 @@ namespace PortfolioManager.Service
 
         private readonly HttpClient _httpClient;
         private readonly IStorage storage;
-        public PortfolioService ()
+        public PortfolioService (IStorage storage)
         {
-            this.storage = new XmlLocalStorage(@"E:\.NET Lab\.NET.Lab.WorkShop-master\DAL\storage.xml");
+            this.storage = storage;
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
