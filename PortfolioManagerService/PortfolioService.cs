@@ -79,10 +79,9 @@ namespace PortfolioManager.Service
             storage.Update(item);
         }
 
-        //TODO use storage
         public IEnumerable<PortfolioBllModel> GetAll(int userId)
         {
-            var result = storage.GetByPredicate(m => m.UserId == userId).Select(m => m.ToBLLModel());
+            var result = storage.GetByPredicate(m => m.UserId == userId && m.Status != DAL.DTO.SyncronizationStatus.Deleted).Select(m => m.ToBLLModel());
             return result;
         }
 
@@ -112,7 +111,13 @@ namespace PortfolioManager.Service
                         }
                         break;
                     case DAL.DTO.SyncronizationStatus.Dirty:
-                        response = await _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, item);
+                        response = await _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, new CloudDTO()
+                        {
+                            ItemId = item.RemoteId,
+                            SharesNumber = item.SharesNumber,
+                            Symbol = item.Symbol,
+                            UserId = item.UserId
+                        });
                         if (response.IsSuccessStatusCode)
                         {
                             if (AreEqual(item, storage.GetById(item.ItemId).ToBLLModel()))
@@ -123,7 +128,7 @@ namespace PortfolioManager.Service
                         }
                         break;
                     case DAL.DTO.SyncronizationStatus.Deleted:
-                        response = await _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.ItemId));
+                        response = await _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId));
                         if (response.IsSuccessStatusCode)
                             storage.Delete(item.ItemId);
                         break;
@@ -144,8 +149,8 @@ namespace PortfolioManager.Service
 
         private bool AreEqual(PortfolioBllModel item, PortfolioBllModel storedItem)
         {
-            return item.SharesNumber == storedItem.SharesNumber ||
-                item.Symbol == storedItem.Symbol ||
+            return item.SharesNumber == storedItem.SharesNumber &&
+                item.Symbol == storedItem.Symbol &&
                 item.Status == storedItem.Status;
         }
 

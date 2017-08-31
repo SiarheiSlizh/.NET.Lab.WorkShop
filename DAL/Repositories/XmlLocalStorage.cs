@@ -13,17 +13,19 @@ namespace DAL.Repositories
     public class XmlLocalStorage : IStorage
     {
         private string path;
+        private int counter;
 
         public XmlLocalStorage(string path)
         {
             this.path = path;
+            this.counter = GetAll().Select(m => m.ItemId).Max();
         }
 
         public void Add(PortfolioItemDAL item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
-
+            item.ItemId = ++counter;
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(path);
             XmlElement xRoot = xDoc.DocumentElement;

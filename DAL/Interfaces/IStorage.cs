@@ -15,6 +15,5 @@ namespace DAL.Interfaces
         IEnumerable<PortfolioItemDAL> GetAll();
         IEnumerable<PortfolioItemDAL> GetByPredicate(Func<PortfolioItemDAL, bool> predicate);
         PortfolioItemDAL GetById(int id);
-        IEnumerable<PortfolioItemDAL> GetByPredicate(Func<PortfolioItemDAL, bool> predicate);
     }
 }

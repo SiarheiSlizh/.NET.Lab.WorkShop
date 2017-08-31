@@ -15,7 +15,7 @@ namespace DIConfig
     {
         public static void Configure(IKernel kernel, string storagePath)
         {
-            kernel.Bind<IService>().To<PortfolioService>();
+            kernel.Bind<IService>().To<PortfolioService>().InSingletonScope();
             kernel.Bind<IStorage>().To<XmlLocalStorage>().WithConstructorArgument("path", storagePath);
         }
     }

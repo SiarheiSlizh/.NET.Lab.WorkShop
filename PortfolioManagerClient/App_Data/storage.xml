@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Portfolio>
   <Item>
-    <ItemId>1</ItemId>
-    <UserId>1</UserId>
-    <Symbol>epam</Symbol>
-    <SharesNumber>30</SharesNumber>
-    <RemoteId />
-    <Status>Deleted</Status>
-  </Item>
-  <Item>
     <ItemId>2</ItemId>
     <UserId>1</UserId>
     <Symbol>iba</Symbol>
@@ -22,7 +14,7 @@
     <Symbol>epam</Symbol>
     <SharesNumber>100</SharesNumber>
     <RemoteId>3</RemoteId>
-    <Status>Dirty</Status>
+    <Status>Syncronized</Status>
   </Item>
   <Item>
     <ItemId>5</ItemId>
@@ -30,6 +22,70 @@
     <Symbol>epam</Symbol>
     <SharesNumber>100</SharesNumber>
     <RemoteId>2</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>7</ItemId>
+    <UserId>86</UserId>
+    <Symbol>dfg</Symbol>
+    <SharesNumber>2</SharesNumber>
+    <RemoteId>0</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>10</ItemId>
+    <UserId>86</UserId>
+    <Symbol>sdfg</Symbol>
+    <SharesNumber>123</SharesNumber>
+    <RemoteId>0</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>11</ItemId>
+    <UserId>86</UserId>
+    <Symbol>dfg</Symbol>
+    <SharesNumber>2</SharesNumber>
+    <RemoteId>610</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>12</ItemId>
+    <UserId>117</UserId>
+    <Symbol>asdf</Symbol>
+    <SharesNumber>6</SharesNumber>
+    <RemoteId>613</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>13</ItemId>
+    <UserId>86</UserId>
+    <Symbol>efdw</Symbol>
+    <SharesNumber>424</SharesNumber>
+    <RemoteId>615</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>14</ItemId>
+    <UserId>118</UserId>
+    <Symbol>ersgafesd</Symbol>
+    <SharesNumber>2</SharesNumber>
+    <RemoteId>620</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>15</ItemId>
+    <UserId>118</UserId>
+    <Symbol>ersgafe</Symbol>
+    <SharesNumber>6</SharesNumber>
+    <RemoteId>626</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>16</ItemId>
+    <UserId>119</UserId>
+    <Symbol>dszc</Symbol>
+    <SharesNumber>123</SharesNumber>
+    <RemoteId>0</RemoteId>
     <Status>Syncronized</Status>
   </Item>
 </Portfolio>
