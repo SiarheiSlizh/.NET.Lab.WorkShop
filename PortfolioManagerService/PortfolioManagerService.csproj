@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\Mapper.cs" />
     <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Models\CloudDTO.cs" />
     <Compile Include="Models\PortfolioBllModel.cs" />
     <Compile Include="PortfolioService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

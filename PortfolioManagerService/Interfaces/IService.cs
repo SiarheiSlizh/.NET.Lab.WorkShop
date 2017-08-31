@@ -13,6 +13,5 @@ namespace PortfolioManager.Service.Interfaces
         void Update(PortfolioBllModel item);
         void Delete(int id);
         IEnumerable<PortfolioBllModel> GetAll(int userId);
-        PortfolioBllModel GetById(int id);
     }
 }
