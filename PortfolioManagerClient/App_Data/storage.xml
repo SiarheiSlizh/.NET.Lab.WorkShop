@@ -5,41 +5,31 @@
     <UserId>1</UserId>
     <Symbol>epam</Symbol>
     <SharesNumber>30</SharesNumber>
+    <RemoteId />
+    <Status>Deleted</Status>
   </Item>
   <Item>
     <ItemId>2</ItemId>
     <UserId>1</UserId>
     <Symbol>iba</Symbol>
     <SharesNumber>40</SharesNumber>
+    <RemoteId />
+    <Status>Syncronized</Status>
   </Item>
   <Item>
     <ItemId>4</ItemId>
     <UserId>2</UserId>
     <Symbol>epam</Symbol>
     <SharesNumber>100</SharesNumber>
+    <RemoteId>3</RemoteId>
+    <Status>Dirty</Status>
   </Item>
   <Item>
     <ItemId>5</ItemId>
     <UserId>2</UserId>
     <Symbol>epam</Symbol>
     <SharesNumber>100</SharesNumber>
-  </Item>
-  <Item>
-    <ItemId>0</ItemId>
-    <UserId>86</UserId>
-    <Symbol>asdf</Symbol>
-    <SharesNumber>2</SharesNumber>
-  </Item>
-  <Item>
-    <ItemId>0</ItemId>
-    <UserId>86</UserId>
-    <Symbol>nfsdvsDc</Symbol>
-    <SharesNumber>231</SharesNumber>
-  </Item>
-  <Item>
-    <ItemId>0</ItemId>
-    <UserId>86</UserId>
-    <Symbol>фывпа</Symbol>
-    <SharesNumber>3</SharesNumber>
+    <RemoteId>2</RemoteId>
+    <Status>Syncronized</Status>
   </Item>
 </Portfolio>

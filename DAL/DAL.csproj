@@ -43,6 +43,7 @@
     <Compile Include="DTO\PortfolioItemDAL.cs" />
     <Compile Include="DTO\SyncronizationStatus.cs" />
     <Compile Include="Interfaces\IStorage.cs" />
+    <Compile Include="Map\EnumString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\XmlLocalStorage.cs" />
   </ItemGroup>

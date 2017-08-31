@@ -82,7 +82,7 @@ namespace PortfolioManager.Service
         //TODO use storage
         public IEnumerable<PortfolioBllModel> GetAll(int userId)
         {
-            var result = storage.GetAll(userId).Select(m => m.ToBLLModel());
+            var result = storage.GetByPredicate(m => m.UserId == userId).Select(m => m.ToBLLModel());
             return result;
         }
 
