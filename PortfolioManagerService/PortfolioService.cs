@@ -52,12 +52,13 @@ namespace PortfolioManager.Service
         }
         public void Add(PortfolioBllModel item)
         {
-            
             //Add item to local storage
             storage.Add(item.ToDALModel());
             //Add Item to CloudService
+    
             _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, item);
         }
+
 
         public void Delete(int id)
         {
