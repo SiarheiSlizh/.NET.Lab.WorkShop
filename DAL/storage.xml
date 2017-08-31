@@ -28,8 +28,24 @@
     <ItemId>5</ItemId>
     <UserId>2</UserId>
     <Symbol>epam</Symbol>
-    <SharesNumber>100</SharesNumber>
-    <RemoteId>2</RemoteId>
+    <SharesNumber>120</SharesNumber>
+    <RemoteId>0</RemoteId>
     <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>0</ItemId>
+    <UserId>2</UserId>
+    <Symbol>epam</Symbol>
+    <SharesNumber>120</SharesNumber>
+    <RemoteId />
+    <Status>New</Status>
+  </Item>
+  <Item>
+    <ItemId>1729233140</ItemId>
+    <UserId>2</UserId>
+    <Symbol>epam</Symbol>
+    <SharesNumber>120</SharesNumber>
+    <RemoteId />
+    <Status>New</Status>
   </Item>
 </Portfolio>
