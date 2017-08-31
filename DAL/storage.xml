@@ -24,4 +24,10 @@
     <Symbol>epam</Symbol>
     <SharesNumber>100</SharesNumber>
   </Item>
+  <Item>
+    <ItemId>1</ItemId>
+    <UserId>36</UserId>
+    <Symbol>epam</Symbol>
+    <SharesNumber>20</SharesNumber>
+  </Item>
 </Portfolio>
