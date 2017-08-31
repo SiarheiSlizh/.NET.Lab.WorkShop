@@ -89,19 +89,19 @@
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>21</ItemId>
+    <ItemId>17</ItemId>
     <UserId>36</UserId>
-    <Symbol>amzn</Symbol>
-    <SharesNumber>2</SharesNumber>
-    <RemoteId>929</RemoteId>
-    <Status>Syncronized</Status>
+    <Symbol>AMZN</Symbol>
+    <SharesNumber>30</SharesNumber>
+    <RemoteId>1001</RemoteId>
+    <Status>Deleted</Status>
   </Item>
   <Item>
-    <ItemId>22</ItemId>
+    <ItemId>19</ItemId>
     <UserId>36</UserId>
-    <Symbol>amzn</Symbol>
-    <SharesNumber>20</SharesNumber>
-    <RemoteId>929</RemoteId>
-    <Status>Syncronized</Status>
+    <Symbol>AMZN</Symbol>
+    <SharesNumber>30</SharesNumber>
+    <RemoteId>0</RemoteId>
+    <Status>Deleted</Status>
   </Item>
 </Portfolio>

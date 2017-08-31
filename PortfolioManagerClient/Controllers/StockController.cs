@@ -15,28 +15,35 @@ namespace PortfolioManagerClient.Controllers
         [Route("api/Stock/{name}")]
         public StockViewModel Get(string name)
         {
-            string json;
+            string json = "";
 
             using (var web = new WebClient())
             {
-                var url = string.Format("http://finance.google.com/finance/info?q=NASDAQ:{0}", name);
-                json = web.DownloadString(url);
+                try {
+                    var url = string.Format("http://finance.google.com/finance/info?q=NASDAQ:{0}", name);
+                    json = web.DownloadString(url);
+                }
+                catch { }
             }
 
             //Google adds a comment before the json for some unknown reason, so we need to remove it
-            json = json.Replace("//", "");
-
-            var v = JArray.Parse(json);
-
-            var ticker = (string)v[0].SelectToken("t");
-            var price = (decimal)v[0].SelectToken("l");
-
-
-            return new StockViewModel()
+            if (json != "")
             {
-                Ticker = ticker,
-                Price = price
-            };
+                json = json.Replace("//", "");
+
+                var v = JArray.Parse(json);
+
+                var ticker = (string)v[0].SelectToken("t");
+                var price = (decimal)v[0].SelectToken("l");
+                
+                return new StockViewModel()
+                {
+                    Ticker = ticker,
+                    Price = price
+                };
+            }
+            else
+                return null;
         }
     }
 }
