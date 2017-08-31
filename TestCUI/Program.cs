@@ -13,20 +13,20 @@ namespace TestCUI
         static void Main(string[] args)
         {
             XmlLocalStorage loc = new XmlLocalStorage(@"E:\.NET Lab\Topics\fff\.NET.Lab.WorkShop-master\DAL\storage.xml");
-            var list = loc.GetByPredicate(m => m.Status != SyncronizationStatus.Deleted);
-            Console.WriteLine(list.Count());
+            //var list = loc.GetByPredicate(m => m.Status != SyncronizationStatus.Deleted);
+            //Console.WriteLine(list.Count());
 
-            foreach (var item in list)
-                Console.WriteLine(item.ItemId + " " + item.UserId + " " + item.Symbol + " " + item.SharesNumber + " " + item.RemoteId + " " +item.Status);
+            //foreach (var item in list)
+            //    Console.WriteLine(item.ItemId + " " + item.UserId + " " + item.Symbol + " " + item.SharesNumber + " " + item.RemoteId + " " +item.Status);
 
-            PortfolioItemDAL el = loc.GetById(1);
+            //PortfolioItemDAL el = loc.GetById(1);
 
-            Console.WriteLine(el.ItemId + " " + el.UserId + " " + el.Symbol + " " + el.SharesNumber + " " + el.RemoteId + " " + el.Status);
+            //Console.WriteLine(el.ItemId + " " + el.UserId + " " + el.Symbol + " " + el.SharesNumber + " " + el.RemoteId + " " + el.Status);
 
             //loc.Delete(2);
 
-            PortfolioItemDAL newEl = new PortfolioItemDAL() { ItemId = 5, UserId = 2, Symbol = "epam", SharesNumber = 100, RemoteId = 2, Status = SyncronizationStatus.Syncronized };
-            //loc.Add(newEl);
+            PortfolioItemDAL newEl = new PortfolioItemDAL() { UserId = 2, Symbol = "epam", SharesNumber = 120, Status = SyncronizationStatus.Syncronized };
+            loc.Add(newEl);
 
             //loc.Update(newEl);
             //var el = loc.GetById(5);

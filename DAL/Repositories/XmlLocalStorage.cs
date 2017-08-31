@@ -27,11 +27,12 @@ namespace DAL.Repositories
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(path);
             XmlElement xRoot = xDoc.DocumentElement;
+            int count = xRoot.ChildNodes.Count;
 
             XmlElement xItem = xDoc.CreateElement("Item");
 
             XmlElement xItemId = xDoc.CreateElement("ItemId");
-            xItemId.InnerText = item.ItemId.ToString();
+            xItemId.InnerText = Guid.NewGuid().GetHashCode().ToString();
             xItem.AppendChild(xItemId);
             XmlElement xUserId = xDoc.CreateElement("UserId");
             xUserId.InnerText = item.UserId.ToString();
