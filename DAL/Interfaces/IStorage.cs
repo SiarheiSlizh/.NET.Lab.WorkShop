@@ -14,5 +14,6 @@ namespace DAL.Interfaces
         void Delete(int id);
         IEnumerable<PortfolioItemDAL> GetAll(int userId);
         PortfolioItemDAL GetById(int id);
+        IEnumerable<PortfolioItemDAL> GetByPredicate(Func<PortfolioItemDAL, bool> predicate);
     }
 }
