@@ -51,7 +51,6 @@ namespace PortfolioManager.Service
 
         private readonly HttpClient _httpClient;
         private readonly IStorage storage;
-        private readonly Timer timer;
         public PortfolioService (IStorage storage)
         {
             this.storage = storage;
@@ -88,24 +87,30 @@ namespace PortfolioManager.Service
         public void Update(PortfolioBllModel item)
         {
             item.Status = DAL.DTO.SyncronizationStatus.Dirty;
+            item.RemoteId = storage.GetById(item.ItemId).RemoteId;
             storage.Update(item.ToDALModel());
         }
-
         private void UploadDataToCloud()
         {
             while (true)
             {
-                var itemsToSyncronize = storage.GetByPredicate(m => m.Status != DAL.DTO.SyncronizationStatus.Syncronized).Select(m => m.ToBLLModel());
-                itemsToSyncronize.AsParallel().ForAll(async item =>
+                IEnumerable<PortfolioBllModel> itemsToSyncronize;
+                itemsToSyncronize = storage.GetByPredicate(m => m.Status != DAL.DTO.SyncronizationStatus.Syncronized).Select(m => m.ToBLLModel());
+                itemsToSyncronize.AsParallel().ForAll(item =>
                 {
                     HttpResponseMessage response;
                     switch (item.Status)
                     {
                         case DAL.DTO.SyncronizationStatus.New:
-                            response = await _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, item);
+                            response = _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, new CloudDTO()
+                            {
+                                SharesNumber = item.SharesNumber,
+                                Symbol = item.Symbol,
+                                UserId = item.UserId
+                            }).Result;
                             if (response.IsSuccessStatusCode)
                             {
-                                var remoteId = await GetRemoteId(item);
+                                var remoteId = GetRemoteId(item).Result;
                                 var storedItem = storage.GetById(item.ItemId).ToBLLModel();
                                 storedItem.Status = GetProperStatus(item, storedItem);
                                 storedItem.RemoteId = remoteId;
@@ -113,13 +118,13 @@ namespace PortfolioManager.Service
                             }
                             break;
                         case DAL.DTO.SyncronizationStatus.Dirty:
-                            response = await _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, new CloudDTO()
+                            response = _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, new CloudDTO()
                             {
                                 ItemId = item.RemoteId,
                                 SharesNumber = item.SharesNumber,
                                 Symbol = item.Symbol,
                                 UserId = item.UserId
-                            });
+                            }).Result;
                             if (response.IsSuccessStatusCode)
                             {
                                 if (AreEqual(item, storage.GetById(item.ItemId).ToBLLModel()))
@@ -130,13 +135,13 @@ namespace PortfolioManager.Service
                             }
                             break;
                         case DAL.DTO.SyncronizationStatus.Deleted:
-                            response = await _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId));
+                            response = _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId)).Result;
                             if (response.IsSuccessStatusCode)
                                 storage.Delete(item.ItemId);
                             break;
                     }
                 });
-                Thread.Sleep(10000);
+                Thread.Sleep(cloudUpdateTimeOut);
             }
         }
 
@@ -162,9 +167,7 @@ namespace PortfolioManager.Service
         {
             if (AreEqual(item, storedItem))
                 return DAL.DTO.SyncronizationStatus.Syncronized;
-            if (storedItem.Status == DAL.DTO.SyncronizationStatus.Deleted)
-                return DAL.DTO.SyncronizationStatus.Deleted;
-            return DAL.DTO.SyncronizationStatus.Dirty;
+            return storedItem.Status;
         }
     }
 }

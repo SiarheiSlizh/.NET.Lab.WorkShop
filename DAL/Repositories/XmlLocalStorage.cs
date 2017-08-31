@@ -18,7 +18,10 @@ namespace DAL.Repositories
         public XmlLocalStorage(string path)
         {
             this.path = path;
-            this.counter = GetAll().Select(m => m.ItemId).Max();
+            if (this.GetAll().Count() == 0)
+                counter = 1;
+            else
+                this.counter = GetAll().Select(m => m.ItemId).Max();
         }
 
         public void Add(PortfolioItemDAL item)
@@ -34,7 +37,7 @@ namespace DAL.Repositories
             XmlElement xItem = xDoc.CreateElement("Item");
 
             XmlElement xItemId = xDoc.CreateElement("ItemId");
-            xItemId.InnerText = Guid.NewGuid().GetHashCode().ToString();
+            xItemId.InnerText = item.ItemId.ToString();
             xItem.AppendChild(xItemId);
             XmlElement xUserId = xDoc.CreateElement("UserId");
             xUserId.InnerText = item.UserId.ToString();
