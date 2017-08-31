@@ -3,12 +3,18 @@
     // appends a row to the portfolio items table.
     // @parentSelector: selector to append a row to.
     // @obj: portfolio item object to append.
-    var appendRow = function(parentSelector, obj) {
-        var tr = $("<tr data-id='" + obj.ItemId + "'></tr>");
-        tr.append("<td class='name' >" + obj.Symbol + "</td>");
-        tr.append("<td class='name' >" + obj.SharesNumber + "</td>");
-        tr.append("<td><button class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-pencil'> Update</i></button><button class='btn btn-danger btn-sm' style='margin-left:2%'><i class='glyphicon glyphicon-remove'> Delete</i></button></td>");        
-        $(parentSelector).append(tr);
+    var appendRow = function (parentSelector, obj) {
+        var price;
+        var stock = $.getJSON("/api/Stock/" + obj.Symbol, function (data) {
+            var tr = $("<tr data-id='" + obj.ItemId + "'></tr>");
+            tr.append("<td class='name' >" + obj.Symbol + "</td>");
+            tr.append("<td class='name' >" + obj.SharesNumber + "</td>");
+            tr.append("<td class='name' >" + data.Price + "</td>");
+            tr.append("<td class='name' >" + data.Price * obj.SharesNumber + "</td>");
+            tr.append("<td><button class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-pencil'> Update</i></button><button class='btn btn-danger btn-sm' style='margin-left:2%'><i class='glyphicon glyphicon-remove'> Delete</i></button></td>");
+
+            $(parentSelector).append(tr);
+        });
     }
 
     // adds all portfolio items as rows (deletes all rows before).
