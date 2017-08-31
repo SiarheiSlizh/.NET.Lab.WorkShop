@@ -43,21 +43,22 @@ namespace PortfolioManager.Service
 
         private readonly HttpClient _httpClient;
         private readonly IStorage storage;
-        public PortfolioService ()
+        public PortfolioService (IStorage storage)
         {
-            this.storage = new XmlLocalStorage(@"E:\.NET Lab\Topics\fff\.NET.Lab.WorkShop-master\DAL\storage.xml");
+            this.storage = storage;
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         }
         public void Add(PortfolioBllModel item)
         {
-            
             //Add item to local storage
             storage.Add(item.ToDALModel());
             //Add Item to CloudService
+    
             _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, item);
         }
+
 
         public void Delete(int id)
         {
@@ -67,7 +68,7 @@ namespace PortfolioManager.Service
         //TODO use storage
         public IEnumerable<PortfolioBllModel> GetAll(int userId)
         {
-            var result = storage.GetAll(userId).Select(m => m.ToBLLModel());
+            var result = storage.GetByPredicate(m => m.UserId == userId).Select(m => m.ToBLLModel());
             return result;
         }
 

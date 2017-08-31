@@ -15,5 +15,9 @@ namespace DAL.DTO
         public string Symbol { get; set; }
 
         public int SharesNumber { get; set; }
+
+        public int RemoteId { get; set; }
+
+        public SyncronizationStatus Status { get; set; }
     }
 }

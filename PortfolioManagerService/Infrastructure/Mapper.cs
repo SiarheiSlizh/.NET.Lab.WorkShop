@@ -13,7 +13,9 @@ namespace PortfolioManager.Service.Infrastructure
                 ItemId = bllItem.ItemId,
                 UserId = bllItem.UserId,
                 SharesNumber = bllItem.SharesNumber,
-                Symbol = bllItem.Symbol
+                Symbol = bllItem.Symbol,
+                RemoteId = bllItem.RemoteId,
+                Status = bllItem.Status
             };
         }
 
@@ -24,7 +26,9 @@ namespace PortfolioManager.Service.Infrastructure
                 ItemId = dalModel.ItemId,
                 UserId = dalModel.UserId,
                 SharesNumber = dalModel.SharesNumber,
-                Symbol = dalModel.Symbol
+                Symbol = dalModel.Symbol,
+                RemoteId = dalModel.RemoteId,
+                Status = dalModel.Status
             };
         }
     }

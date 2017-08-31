@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioManagerClient", "PortfolioManagerClient\PortfolioManagerClient.csproj", "{DCF98A24-6871-43D7-BAB1-0D00B7A59A01}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{D4912D9E-5958-4866-9DC4-70D28731A15B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCUI", "TestCUI\TestCUI.csproj", "{46B2080B-9E4B-476C-A718-BBD77BD9E177}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIConfig", "DIConfig\DIConfig.csproj", "{9722ACF9-E890-4540-A61F-1CFD8C49E00A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{46B2080B-9E4B-476C-A718-BBD77BD9E177}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46B2080B-9E4B-476C-A718-BBD77BD9E177}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46B2080B-9E4B-476C-A718-BBD77BD9E177}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9722ACF9-E890-4540-A61F-1CFD8C49E00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9722ACF9-E890-4540-A61F-1CFD8C49E00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9722ACF9-E890-4540-A61F-1CFD8C49E00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9722ACF9-E890-4540-A61F-1CFD8C49E00A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

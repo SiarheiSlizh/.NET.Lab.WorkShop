@@ -11,8 +11,8 @@ namespace PortfolioManagerClient.App_Start
     using Ninject;
     using Ninject.Web.Common;
 
-    using PortfolioManager.Service;
-    using PortfolioManager.Service.Interfaces;
+    using DIConfig;
+    using System.Web.Hosting;
 
     public static class NinjectWebCommon 
     {
@@ -64,7 +64,7 @@ namespace PortfolioManagerClient.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IService>().To<PortfolioService>().InSingletonScope();
+            DIConfig.Configure(kernel, HostingEnvironment.MapPath(@"~/App_Data/storage.xml"));
         }        
     }
 }

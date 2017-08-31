@@ -1,5 +1,6 @@
 ﻿using DAL.DTO;
 using DAL.Interfaces;
+using DAL.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,11 @@ namespace DAL.Repositories
             XmlElement xSharesNumber = xDoc.CreateElement("SharesNumber");
             xSharesNumber.InnerText = item.SharesNumber.ToString();
             xItem.AppendChild(xSharesNumber);
+            XmlElement xRemoteId = xDoc.CreateElement("RemoteId");
+            xItem.AppendChild(xRemoteId);
+            XmlElement xStatus = xDoc.CreateElement("Status");
+            xStatus.InnerText = SyncronizationStatus.New.ToString();
+            xItem.AppendChild(xStatus);
 
             xRoot.AppendChild(xItem);
             xDoc.Save(path);
@@ -56,27 +62,38 @@ namespace DAL.Repositories
             xDoc.Save(path);
         }
 
-        public IEnumerable<PortfolioItemDAL> GetAll(int userId)
+        public IEnumerable<PortfolioItemDAL> GetAll()
         {
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(path);
             XmlElement xRoot = xDoc.DocumentElement;
-            XmlNodeList nodes = xRoot.SelectNodes("Item[UserId='" + userId + "']");
+            XmlNodeList nodes = xRoot.ChildNodes;
 
             List<PortfolioItemDAL> list = new List<PortfolioItemDAL>();
 
             foreach (XmlNode node in nodes)
             {
+                int remoteId;
+                int.TryParse(node.ChildNodes[4]?.InnerText, out remoteId);
                 list.Add(new PortfolioItemDAL()
                 {
                     ItemId = int.Parse(node.ChildNodes[0].InnerText),
                     UserId = int.Parse(node.ChildNodes[1].InnerText),
                     Symbol = node.ChildNodes[2].InnerText,
-                    SharesNumber = int.Parse(node.ChildNodes[3].InnerText)
+                    SharesNumber = int.Parse(node.ChildNodes[3].InnerText),
+                    RemoteId = remoteId,
+                    Status = node.ChildNodes[5].InnerText.MapToSyncStatus()
                 });
             }
 
             return list;
+        }
+
+        public IEnumerable<PortfolioItemDAL> GetByPredicate(Func<PortfolioItemDAL, bool> predicate)
+        {
+            IEnumerable<PortfolioItemDAL> list = new List<PortfolioItemDAL>();
+            list = GetAll();
+            return list.Where(predicate);
         }
 
         public PortfolioItemDAL GetById(int id)
@@ -86,12 +103,16 @@ namespace DAL.Repositories
             XmlElement xRoot = xDoc.DocumentElement;
             XmlNode node = xRoot.SelectSingleNode("Item[ItemId='" + id + "']");
 
+            int remoteId;
+            int.TryParse(node.ChildNodes[4]?.InnerText, out remoteId);
             return new PortfolioItemDAL()
             {
                 ItemId = int.Parse(node.ChildNodes[0].InnerText),
                 UserId = int.Parse(node.ChildNodes[1].InnerText),
                 Symbol = node.ChildNodes[2].InnerText,
-                SharesNumber = int.Parse(node.ChildNodes[3].InnerText)
+                SharesNumber = int.Parse(node.ChildNodes[3].InnerText),
+                RemoteId = remoteId,
+                Status = node.ChildNodes[5].InnerText.MapToSyncStatus()
             };
         }
 
@@ -108,6 +129,8 @@ namespace DAL.Repositories
             node.ChildNodes[1].InnerText = item.UserId.ToString();
             node.ChildNodes[2].InnerText = item.Symbol;
             node.ChildNodes[3].InnerText = item.SharesNumber.ToString();
+            node.ChildNodes[4].InnerText = item.RemoteId.ToString();
+            node.ChildNodes[5].InnerText = item.Status.ToString();
 
             xDoc.Save(path);
         }

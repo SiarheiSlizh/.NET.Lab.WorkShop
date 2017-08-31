@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DTO;
 
 namespace PortfolioManager.Service.Models
 {
@@ -15,5 +16,9 @@ namespace PortfolioManager.Service.Models
         public string Symbol { get; set; }
 
         public int SharesNumber { get; set; }
+
+        public int RemoteId { get; set; }
+
+        public SyncronizationStatus Status { get; set; }
     }
 }
