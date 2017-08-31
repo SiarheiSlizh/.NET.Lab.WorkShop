@@ -25,67 +25,99 @@
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>7</ItemId>
+    <ItemId>-2056956009</ItemId>
+    <UserId>121</UserId>
+    <Symbol>gsadf</Symbol>
+    <SharesNumber>23</SharesNumber>
+    <RemoteId>636</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>-1560446219</ItemId>
+    <UserId>121</UserId>
+    <Symbol>gsadf</Symbol>
+    <SharesNumber>23</SharesNumber>
+    <RemoteId>636</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>-1919027192</ItemId>
+    <UserId>125</UserId>
+    <Symbol>gads</Symbol>
+    <SharesNumber>4</SharesNumber>
+    <RemoteId>665</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>-1734747651</ItemId>
     <UserId>86</UserId>
-    <Symbol>dfg</Symbol>
-    <SharesNumber>2</SharesNumber>
-    <RemoteId>0</RemoteId>
+    <Symbol>asdgf</Symbol>
+    <SharesNumber>312</SharesNumber>
+    <RemoteId>667</RemoteId>
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>10</ItemId>
+    <ItemId>-653066679</ItemId>
+    <UserId>127</UserId>
+    <Symbol>shdgsf</Symbol>
+    <SharesNumber>23</SharesNumber>
+    <RemoteId>668</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>-2115466727</ItemId>
+    <UserId>127</UserId>
+    <Symbol>kjhgfd</Symbol>
+    <SharesNumber>26</SharesNumber>
+    <RemoteId>675</RemoteId>
+    <Status>Syncronized</Status>
+  </Item>
+  <Item>
+    <ItemId>-1294759434</ItemId>
     <UserId>86</UserId>
-    <Symbol>sdfg</Symbol>
-    <SharesNumber>123</SharesNumber>
-    <RemoteId>0</RemoteId>
+    <Symbol>trfed</Symbol>
+    <SharesNumber>3</SharesNumber>
+    <RemoteId>681</RemoteId>
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>11</ItemId>
+    <ItemId>1302592169</ItemId>
     <UserId>86</UserId>
-    <Symbol>dfg</Symbol>
-    <SharesNumber>2</SharesNumber>
-    <RemoteId>610</RemoteId>
+    <Symbol>6y54gt4fr</Symbol>
+    <SharesNumber>4</SharesNumber>
+    <RemoteId>693</RemoteId>
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>12</ItemId>
-    <UserId>117</UserId>
-    <Symbol>asdf</Symbol>
-    <SharesNumber>6</SharesNumber>
-    <RemoteId>613</RemoteId>
-    <Status>Syncronized</Status>
-  </Item>
-  <Item>
-    <ItemId>13</ItemId>
+    <ItemId>141063283</ItemId>
     <UserId>86</UserId>
-    <Symbol>efdw</Symbol>
-    <SharesNumber>424</SharesNumber>
-    <RemoteId>615</RemoteId>
+    <Symbol>6y54gt4fr</Symbol>
+    <SharesNumber>4</SharesNumber>
+    <RemoteId>693</RemoteId>
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>14</ItemId>
-    <UserId>118</UserId>
-    <Symbol>ersgafesd</Symbol>
-    <SharesNumber>2</SharesNumber>
-    <RemoteId>620</RemoteId>
+    <ItemId>547855721</ItemId>
+    <UserId>136</UserId>
+    <Symbol>hrdffs</Symbol>
+    <SharesNumber>32</SharesNumber>
+    <RemoteId>706</RemoteId>
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>15</ItemId>
-    <UserId>118</UserId>
-    <Symbol>ersgafe</Symbol>
-    <SharesNumber>6</SharesNumber>
-    <RemoteId>626</RemoteId>
+    <ItemId>1822193708</ItemId>
+    <UserId>137</UserId>
+    <Symbol>hrdffs</Symbol>
+    <SharesNumber>32</SharesNumber>
+    <RemoteId>707</RemoteId>
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>16</ItemId>
-    <UserId>119</UserId>
-    <Symbol>dszc</Symbol>
-    <SharesNumber>123</SharesNumber>
-    <RemoteId>0</RemoteId>
+    <ItemId>766045623</ItemId>
+    <UserId>137</UserId>
+    <Symbol>hrdffs</Symbol>
+    <SharesNumber>38</SharesNumber>
+    <RemoteId>716</RemoteId>
     <Status>Syncronized</Status>
   </Item>
 </Portfolio>

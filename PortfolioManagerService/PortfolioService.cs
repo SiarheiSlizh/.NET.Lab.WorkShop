@@ -58,7 +58,7 @@ namespace PortfolioManager.Service
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            timer = new Timer(UploadDataToCloud, null, 0, cloudUpdateTimeOut);
+            Task.Run((Action)UploadDataToCloud);
         }
         public void Add(PortfolioBllModel item)
         {
@@ -91,49 +91,53 @@ namespace PortfolioManager.Service
             storage.Update(item.ToDALModel());
         }
 
-        private void UploadDataToCloud(object state)
+        private void UploadDataToCloud()
         {
-            var itemsToSyncronize = storage.GetByPredicate(m => m.Status != DAL.DTO.SyncronizationStatus.Syncronized).Select(m => m.ToBLLModel());
-            Parallel.ForEach(itemsToSyncronize, async item =>
+            while (true)
             {
-                HttpResponseMessage response;
-                switch (item.Status)
+                var itemsToSyncronize = storage.GetByPredicate(m => m.Status != DAL.DTO.SyncronizationStatus.Syncronized).Select(m => m.ToBLLModel());
+                itemsToSyncronize.AsParallel().ForAll(async item =>
                 {
-                    case DAL.DTO.SyncronizationStatus.New:
-                        response = await _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, item);
-                        if (response.IsSuccessStatusCode)
-                        { 
-                            var remoteId = await GetRemoteId(item);
-                            var storedItem = storage.GetById(item.ItemId).ToBLLModel();
-                            storedItem.Status = GetProperStatus(item, storedItem);
-                            storedItem.RemoteId = remoteId;
-                            storage.Update(storedItem.ToDALModel());
-                        }
-                        break;
-                    case DAL.DTO.SyncronizationStatus.Dirty:
-                        response = await _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, new CloudDTO()
-                        {
-                            ItemId = item.RemoteId,
-                            SharesNumber = item.SharesNumber,
-                            Symbol = item.Symbol,
-                            UserId = item.UserId
-                        });
-                        if (response.IsSuccessStatusCode)
-                        {
-                            if (AreEqual(item, storage.GetById(item.ItemId).ToBLLModel()))
+                    HttpResponseMessage response;
+                    switch (item.Status)
+                    {
+                        case DAL.DTO.SyncronizationStatus.New:
+                            response = await _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, item);
+                            if (response.IsSuccessStatusCode)
                             {
-                                item.Status = DAL.DTO.SyncronizationStatus.Syncronized;
-                                storage.Update(item.ToDALModel());
+                                var remoteId = await GetRemoteId(item);
+                                var storedItem = storage.GetById(item.ItemId).ToBLLModel();
+                                storedItem.Status = GetProperStatus(item, storedItem);
+                                storedItem.RemoteId = remoteId;
+                                storage.Update(storedItem.ToDALModel());
                             }
-                        }
-                        break;
-                    case DAL.DTO.SyncronizationStatus.Deleted:
-                        response = await _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId));
-                        if (response.IsSuccessStatusCode)
-                            storage.Delete(item.ItemId);
-                        break;
-                }
-            });
+                            break;
+                        case DAL.DTO.SyncronizationStatus.Dirty:
+                            response = await _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, new CloudDTO()
+                            {
+                                ItemId = item.RemoteId,
+                                SharesNumber = item.SharesNumber,
+                                Symbol = item.Symbol,
+                                UserId = item.UserId
+                            });
+                            if (response.IsSuccessStatusCode)
+                            {
+                                if (AreEqual(item, storage.GetById(item.ItemId).ToBLLModel()))
+                                {
+                                    item.Status = DAL.DTO.SyncronizationStatus.Syncronized;
+                                    storage.Update(item.ToDALModel());
+                                }
+                            }
+                            break;
+                        case DAL.DTO.SyncronizationStatus.Deleted:
+                            response = await _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId));
+                            if (response.IsSuccessStatusCode)
+                                storage.Delete(item.ItemId);
+                            break;
+                    }
+                });
+                Thread.Sleep(10000);
+            }
         }
 
         private async Task<int> GetRemoteId(PortfolioBllModel item)
