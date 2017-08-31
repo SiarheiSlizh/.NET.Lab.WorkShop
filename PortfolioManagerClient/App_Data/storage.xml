@@ -96,36 +96,4 @@
     <RemoteId>782</RemoteId>
     <Status>Syncronized</Status>
   </Item>
-  <Item>
-    <ItemId>25</ItemId>
-    <UserId>36</UserId>
-    <Symbol>epam</Symbol>
-    <SharesNumber>80</SharesNumber>
-    <RemoteId>0</RemoteId>
-    <Status>Deleted</Status>
-  </Item>
-  <Item>
-    <ItemId>26</ItemId>
-    <UserId>36</UserId>
-    <Symbol>epam</Symbol>
-    <SharesNumber>40</SharesNumber>
-    <RemoteId>0</RemoteId>
-    <Status>Deleted</Status>
-  </Item>
-  <Item>
-    <ItemId>27</ItemId>
-    <UserId>36</UserId>
-    <Symbol>er</Symbol>
-    <SharesNumber>25</SharesNumber>
-    <RemoteId>0</RemoteId>
-    <Status>Deleted</Status>
-  </Item>
-  <Item>
-    <ItemId>28</ItemId>
-    <UserId>36</UserId>
-    <Symbol>www</Symbol>
-    <SharesNumber>256</SharesNumber>
-    <RemoteId>0</RemoteId>
-    <Status>Deleted</Status>
-  </Item>
 </Portfolio>
