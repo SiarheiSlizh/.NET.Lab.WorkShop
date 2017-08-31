@@ -97,43 +97,35 @@
     <Status>Syncronized</Status>
   </Item>
   <Item>
-    <ItemId>0</ItemId>
+    <ItemId>25</ItemId>
     <UserId>36</UserId>
-    <Symbol>www</Symbol>
-    <SharesNumber>12</SharesNumber>
-    <RemoteId />
-    <Status>New</Status>
+    <Symbol>epam</Symbol>
+    <SharesNumber>80</SharesNumber>
+    <RemoteId>0</RemoteId>
+    <Status>Deleted</Status>
   </Item>
   <Item>
-    <ItemId>0</ItemId>
+    <ItemId>26</ItemId>
     <UserId>36</UserId>
-    <Symbol>www</Symbol>
-    <SharesNumber>0</SharesNumber>
-    <RemoteId />
-    <Status>New</Status>
+    <Symbol>epam</Symbol>
+    <SharesNumber>40</SharesNumber>
+    <RemoteId>0</RemoteId>
+    <Status>Deleted</Status>
   </Item>
   <Item>
-    <ItemId>0</ItemId>
+    <ItemId>27</ItemId>
     <UserId>36</UserId>
-    <Symbol>www</Symbol>
-    <SharesNumber>20</SharesNumber>
-    <RemoteId />
-    <Status>New</Status>
+    <Symbol>er</Symbol>
+    <SharesNumber>25</SharesNumber>
+    <RemoteId>0</RemoteId>
+    <Status>Deleted</Status>
   </Item>
   <Item>
-    <ItemId>0</ItemId>
+    <ItemId>28</ItemId>
     <UserId>36</UserId>
     <Symbol>www</Symbol>
-    <SharesNumber>2</SharesNumber>
-    <RemoteId />
-    <Status>New</Status>
-  </Item>
-  <Item>
-    <ItemId>0</ItemId>
-    <UserId>36</UserId>
-    <Symbol>www</Symbol>
-    <SharesNumber>20</SharesNumber>
-    <RemoteId />
-    <Status>New</Status>
+    <SharesNumber>256</SharesNumber>
+    <RemoteId>0</RemoteId>
+    <Status>Deleted</Status>
   </Item>
 </Portfolio>

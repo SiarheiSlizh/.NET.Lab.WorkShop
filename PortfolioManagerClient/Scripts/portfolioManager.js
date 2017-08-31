@@ -7,8 +7,7 @@
         var tr = $("<tr data-id='" + obj.ItemId + "'></tr>");
         tr.append("<td class='name' >" + obj.Symbol + "</td>");
         tr.append("<td class='name' >" + obj.SharesNumber + "</td>");
-        tr.append("<td><button class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-pencil'> Update</i></button><input type='button' class='btn btn-danger btn-sm' value='Delete' /></td>");
-        //tr.append("<td><input type='button' class='update-button' value='Update' /><input type='button' class='delete-button' value='Delete' /></td>");
+        tr.append("<td><button class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-pencil'> Update</i></button><button class='btn btn-danger btn-sm' style='margin-left:2%'><i class='glyphicon glyphicon-remove'> Delete</i></button></td>");        
         $(parentSelector).append(tr);
     }
 
@@ -94,7 +93,7 @@ $(function () {
     });
 
     // bind update portfolio item checkbox click handler
-    $("#items > tbody").on('click', '.btn btn-warning btn-sm', function () {
+    $("#items > tbody").on('click', '.btn-warning', function () {
         var tr = $(this).parent().parent();
         var itemId = tr.attr("data-id");
         var symbol = $('#symbol')[0].value;
@@ -110,7 +109,7 @@ $(function () {
     });
 
     // bind delete button click for future rows
-    $('#items > tbody').on('click', '.delete-button', function() {
+    $('#items > tbody').on('click', '.btn-danger', function () {
         var itemId = $(this).parent().parent().attr("data-id");
         portfolioManager.deleteItem(itemId)
             .then(portfolioManager.loadItems)
