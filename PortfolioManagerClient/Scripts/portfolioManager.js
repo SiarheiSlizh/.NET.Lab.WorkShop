@@ -8,8 +8,9 @@
         var stock = $.getJSON("/api/Stock/" + obj.Symbol, function (data) {
             var sum, price;
             if (data !== null) {
-                price = data.Price;
+                price = data.Price.toFixed(2);
                 sum = data.Price * obj.SharesNumber;
+                sum = sum.toFixed(2);
             }
             else {
                 price = "-";
