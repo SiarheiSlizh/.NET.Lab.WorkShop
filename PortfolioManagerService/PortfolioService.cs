@@ -104,55 +104,69 @@ namespace PortfolioManager.Service
                 itemsToSyncronize = storage.GetByPredicate(m => m.Status != DAL.DTO.SyncronizationStatus.Syncronized).Select(m => m.ToBLLModel());
                 itemsToSyncronize.AsParallel().ForAll(item =>
                 {
-                    HttpResponseMessage response;
                     switch (item.Status)
                     {
                         case DAL.DTO.SyncronizationStatus.New:
-                            response = _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, new CloudDTO()
-                            {
-                                SharesNumber = item.SharesNumber,
-                                Symbol = item.Symbol,
-                                UserId = item.UserId
-                            }).Result;
-                            if (response.IsSuccessStatusCode)
-                            {
-                                var remoteId = GetRemoteId(item);
-                                var storedItem = storage.GetById(item.ItemId).ToBLLModel();
-                                storedItem.Status = GetProperStatus(item, storedItem);
-                                storedItem.RemoteId = remoteId;
-                                storage.Update(storedItem.ToDALModel());
-                            }
+                            SendCreateRequestToCloud(item);
                             break;
                         case DAL.DTO.SyncronizationStatus.Dirty:
-                            response = _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, new CloudDTO()
-                            {
-                                ItemId = item.RemoteId,
-                                SharesNumber = item.SharesNumber,
-                                Symbol = item.Symbol,
-                                UserId = item.UserId
-                            }).Result;
-                            if (response.IsSuccessStatusCode)
-                            {
-                                if (AreEqual(item, storage.GetById(item.ItemId).ToBLLModel()))
-                                {
-                                    item.Status = DAL.DTO.SyncronizationStatus.Syncronized;
-                                    storage.Update(item.ToDALModel());
-                                }
-                            }
+                            SendUpdateRequestToCloud(item);
                             break;
                         case DAL.DTO.SyncronizationStatus.Deleted:
-                            if (item.RemoteId == 0)
-                            {
-                                storage.Delete(item.ItemId);
-                                break;
-                            }
-                            response = _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId)).Result;
-                            if (response.IsSuccessStatusCode)
-                                storage.Delete(item.ItemId);
+                            SendDeleteRequestToCloud(item);
                             break;
                     }
                 });
                 Thread.Sleep(cloudUpdateTimeOut);
+            }
+        }
+
+        private void SendDeleteRequestToCloud(PortfolioBllModel item)
+        {
+            if (item.RemoteId == 0)
+            {
+                storage.Delete(item.ItemId);
+                return;
+            }
+            HttpResponseMessage response = _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId)).Result;
+            if (response.IsSuccessStatusCode)
+                storage.Delete(item.ItemId);
+        }
+
+        private void SendUpdateRequestToCloud(PortfolioBllModel item)
+        {
+            var response = _httpClient.PutAsJsonAsync(_serviceApiUrl + UpdateUrl, new CloudDTO()
+            {
+                ItemId = item.RemoteId,
+                SharesNumber = item.SharesNumber,
+                Symbol = item.Symbol,
+                UserId = item.UserId
+            }).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                if (AreEqual(item, storage.GetById(item.ItemId).ToBLLModel()))
+                {
+                    item.Status = DAL.DTO.SyncronizationStatus.Syncronized;
+                    storage.Update(item.ToDALModel());
+                }
+            }
+        }
+
+        private void SendCreateRequestToCloud(PortfolioBllModel item)
+        {
+            var response = _httpClient.PostAsJsonAsync(_serviceApiUrl + CreateUrl, new CloudDTO()
+            {
+                SharesNumber = item.SharesNumber,
+                Symbol = item.Symbol,
+                UserId = item.UserId
+            }).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var remoteId = GetRemoteId(item);
+                var storedItem = storage.GetById(item.ItemId).ToBLLModel();
+                storedItem.Status = GetProperStatus(item, storedItem);
+                storedItem.RemoteId = remoteId;
+                storage.Update(storedItem.ToDALModel());
             }
         }
 

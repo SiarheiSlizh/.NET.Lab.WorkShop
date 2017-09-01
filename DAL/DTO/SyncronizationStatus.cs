@@ -11,7 +11,6 @@ namespace DAL.DTO
         New,
         Dirty,
         Deleted,
-        Syncronized,
-        SentToCloud
+        Syncronized
     }
 }
