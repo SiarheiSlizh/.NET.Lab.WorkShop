@@ -59,8 +59,13 @@ namespace PortfolioManager.Service
 
             Task.Run((Action)UploadDataToCloud);
         }
+
         public void Add(PortfolioBllModel item)
         {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+            if (storage.GetByPredicate(m => m.Symbol == item.Symbol && m.UserId == item.UserId).Count() > 0)
+                throw new ArgumentException("Item with this symbol already exists", nameof(item));
             item.Status = DAL.DTO.SyncronizationStatus.New;
             storage.Add(item.ToDALModel());
         }
@@ -69,11 +74,6 @@ namespace PortfolioManager.Service
         public void Delete(int itemId)
         {
             var item = storage.GetById(itemId);
-            if (item.Status == DAL.DTO.SyncronizationStatus.New)
-            {
-                storage.Delete(itemId);
-                return;
-            }
             item.Status = DAL.DTO.SyncronizationStatus.Deleted;
             storage.Update(item);
         }
@@ -86,6 +86,12 @@ namespace PortfolioManager.Service
 
         public void Update(PortfolioBllModel item)
         {
+            if (storage.GetById(item.ItemId).Status == DAL.DTO.SyncronizationStatus.New)
+            {
+                item.Status = DAL.DTO.SyncronizationStatus.New;
+                storage.Update(item.ToDALModel());
+                return;
+            }
             item.Status = DAL.DTO.SyncronizationStatus.Dirty;
             item.RemoteId = storage.GetById(item.ItemId).RemoteId;
             storage.Update(item.ToDALModel());
@@ -110,7 +116,7 @@ namespace PortfolioManager.Service
                             }).Result;
                             if (response.IsSuccessStatusCode)
                             {
-                                var remoteId = GetRemoteId(item).Result;
+                                var remoteId = GetRemoteId(item);
                                 var storedItem = storage.GetById(item.ItemId).ToBLLModel();
                                 storedItem.Status = GetProperStatus(item, storedItem);
                                 storedItem.RemoteId = remoteId;
@@ -135,6 +141,11 @@ namespace PortfolioManager.Service
                             }
                             break;
                         case DAL.DTO.SyncronizationStatus.Deleted:
+                            if (item.RemoteId == 0)
+                            {
+                                storage.Delete(item.ItemId);
+                                break;
+                            }
                             response = _httpClient.DeleteAsync(string.Format(_serviceApiUrl + DeleteUrl, item.RemoteId)).Result;
                             if (response.IsSuccessStatusCode)
                                 storage.Delete(item.ItemId);
@@ -145,13 +156,13 @@ namespace PortfolioManager.Service
             }
         }
 
-        private async Task<int> GetRemoteId(PortfolioBllModel item)
+        private  int GetRemoteId(PortfolioBllModel item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
             if (item.RemoteId > 0)
                 return item.RemoteId;
-            var dataAsString = await _httpClient.GetStringAsync(string.Format(_serviceApiUrl + GetAllUrl, item.UserId));
+            var dataAsString = _httpClient.GetStringAsync(string.Format(_serviceApiUrl + GetAllUrl, item.UserId)).Result;
             var userData = JsonConvert.DeserializeObject<IList<CloudDTO>>(dataAsString);
             return userData.FirstOrDefault(m => m.SharesNumber == item.SharesNumber && m.Symbol == item.Symbol).ItemId;
         }
@@ -167,6 +178,8 @@ namespace PortfolioManager.Service
         {
             if (AreEqual(item, storedItem))
                 return DAL.DTO.SyncronizationStatus.Syncronized;
+            if (storedItem.Status == DAL.DTO.SyncronizationStatus.New)
+                return DAL.DTO.SyncronizationStatus.Dirty;
             return storedItem.Status;
         }
     }

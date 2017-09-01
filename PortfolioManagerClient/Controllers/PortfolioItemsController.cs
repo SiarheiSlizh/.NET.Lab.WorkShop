@@ -9,6 +9,7 @@ using PortfolioManagerClient.Infrastructure;
 using System.Linq;
 using Ninject;
 using Ninject.Web.Common;
+using System;
 
 namespace PortfolioManagerClient.Controllers
 {
@@ -60,8 +61,15 @@ namespace PortfolioManagerClient.Controllers
         /// <param name="portfolioItem">The portfolio item to create.</param>
         public void Post(PortfolioItemViewModel portfolioItem)
         {
-            portfolioItem.UserId = _usersService.GetOrCreateUser();
-            _portfolioItemsService.Add(portfolioItem.ToBLLModel());
+            try
+            {
+                portfolioItem.UserId = _usersService.GetOrCreateUser();
+                _portfolioItemsService.Add(portfolioItem.ToBLLModel());
+            }
+            catch(ArgumentException e)
+            {
+                throw new HttpResponseException(System.Net.HttpStatusCode.Conflict);
+            }
         }
     }
 }

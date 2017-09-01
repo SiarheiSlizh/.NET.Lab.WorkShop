@@ -101,6 +101,9 @@ $(function () {
         var sharesNumber = $('#sharesNumber')[0].value;
 
         portfolioManager.createItem(symbol, sharesNumber)
+            .catch(function () {
+                alert('You already have an item with same symbol!')
+            })
             .then(portfolioManager.loadItems)
             .done(function(items) {
                 portfolioManager.displayItems("#items > tbody", items);
